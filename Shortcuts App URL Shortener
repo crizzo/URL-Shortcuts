@@ -1,0 +1,54 @@
+Prerequisites:
+You'll need a Bitly account and an API token (get it from bitly.com after signing up).
+The Shortcuts app (pre-installed on iOS).
+Steps to Create the Shortcut:
+Open the Shortcuts app on your iPhone.
+Tap the "+" button to create a new shortcut.
+Tap "Add Action" and follow these steps to build the workflow:
+Shortcut Actions
+Get URL Input:
+Search for "Get Clipboard" and add it (this will use whatever URL you copied).
+Alternatively, use "Ask for Input" with type "URL" if you want to manually enter URLs.
+Set Up API Request:
+Add a "Get Contents of URL" action.
+Set the method to "POST".
+URL: https://api-ssl.bitly.com/v4/shorten
+Headers:
+Key: Authorization, Value: Bearer YOUR_BITLY_API_TOKEN (replace with your token)
+Key: Content-Type, Value: application/json
+Request Body: JSON
+Tap "Add New Field":
+Field 1: Name: long_url, Type: Text, Value: (select the variable from "Clipboard" or "Provided Input")
+Field 2: Name: domain, Type: Text, Value: bit.ly
+Extract Short URL:
+Add a "Get Dictionary Value" action.
+Set "Key" to link.
+Use the "Contents of URL" as the dictionary input.
+Output Result:
+Add a "Copy to Clipboard" action with the "Dictionary Value" as input.
+Add a "Show Notification" action with text like "Short URL copied: " followed by the "Dictionary Value".
+Finalize:
+Tap the blue arrow (top right), name your shortcut (e.g., "Shorten URL"), and tap "Add to Home Screen" if desired.
+Tap "Done" to save.
+Complete Shortcut Example
+Here’s how it looks in the Shortcuts app:
+
+Action 1: Get Clipboard
+Action 2: Get Contents of URL
+Method: POST
+URL: https://api-ssl.bitly.com/v4/shorten
+Headers:
+Authorization: Bearer YOUR_BITLY_API_TOKEN
+Content-Type: application/json
+Body: {"long_url": "Clipboard", "domain": "bit.ly"}
+Action 3: Get Dictionary Value (Key: link)
+Action 4: Copy to Clipboard (Dictionary Value)
+Action 5: Show Notification ("Short URL copied: Dictionary Value")
+How to Use
+Copy a URL to your clipboard (e.g., from Safari).
+Run the shortcut from the Shortcuts app or Home Screen.
+The shortened URL will be copied to your clipboard and shown in a notification.
+Notes
+Replace YOUR_BITLY_API_TOKEN with your actual Bitly token.
+This uses Bitly’s free tier (1,000 shortens/month).
+You can share this shortcut via iCloud by exporting it once created, but users will need to input their own API token.
